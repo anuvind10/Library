@@ -16,6 +16,7 @@
 }
 
 body{
+    height: 100vh;
     color: var(--font-color);
     display: flex;
     flex-direction: column;
@@ -43,6 +44,11 @@ body{
     background-color: var(--bg-color2);
     height: 1000px;
     border-top: 1px solid rgb(184, 184, 184);
+}
+
+#emptyLibMsg {
+    text-align: center;
+    padding-top: 50px;
 }
 
 .books {

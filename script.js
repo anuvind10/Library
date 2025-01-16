@@ -1,5 +1,6 @@
 const grid = document.querySelector('.books');
 const addButton = document.querySelector('.addButton');
+const emptyLibMsg = document.querySelector('#emptyLibMsg')
 
 const myLibrary = [];
 
@@ -60,8 +61,13 @@ function displayBooks() {
     
         grid.appendChild(book);
     }
+
+    if (grid.hasChildNodes()) {
+        emptyLibMsg.style.display = 'none';
+    }
 }
 
 addButton.addEventListener('click', getDetails);
 const books = document.querySelectorAll('.book');
+
 displayBooks();
