@@ -44,10 +44,10 @@ function displayBooks() {
         var pages = document.createElement('p');
         var read = document.createElement('p');
     
-        title.textContent = myLibrary[i].title;
-        author.textContent = myLibrary[i].author;
-        pages.textContent = myLibrary[i].pages;
-        read.textContent = myLibrary[i].read;
+        title.innerHTML = "<span class='details'>Title: </span>" + myLibrary[i].title;
+        author.innerHTML = "<span class='details'>Author: </span>" + myLibrary[i].author;
+        pages.innerHTML = "<span class='details'>No. of Pages: </span>" + myLibrary[i].pages;
+        read.innerHTML = "<span class='details'>Read: </span>" + myLibrary[i].read;
     
         title.classList.add('title');
         author.classList.add('author');

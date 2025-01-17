@@ -13,6 +13,7 @@
     --bg-color2: #1f1f1f;
     --bg-color3: #575757;
     --font-color: white;
+    --theme-color: #cf7dff;
 }
 
 body{
@@ -22,7 +23,7 @@ body{
     flex-direction: column;
 }
 
-.header {
+header {
     background-color: var(--bg-color1);
     display: flex;
     align-items: center;
@@ -40,7 +41,7 @@ body{
     justify-self: end;
 }
 
-.content {
+main {
     background-color: var(--bg-color2);
     height: 1000px;
     border-top: 1px solid rgb(184, 184, 184);
@@ -62,4 +63,10 @@ body{
     background-color: var(--bg-color3);
     border-radius: 8px;
     padding: 20px;
+    padding-left: 50px;
+}
+
+.details {
+    font-weight: bold;
+    color: var(--theme-color);
 }
