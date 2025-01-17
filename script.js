@@ -1,7 +1,8 @@
-const grid = document.querySelector('.books');
-const addButton = document.querySelector('.addBook');
+const booksGrid = document.querySelector('.books');
+const newEntry = document.querySelector('#newEntry')
 const emptyLibMsg = document.querySelector('#emptyLibMsg');
-const addBookPage = document.querySelector('#addBook');
+const addButton = document.querySelector('.add');
+const addBookTab = document.querySelector('#addBookTab');
 
 const myLibrary = [];
 
@@ -32,8 +33,8 @@ function getDetails() {
 
 function displayBooks() {
     
-    while (grid.hasChildNodes()) {
-        grid.removeChild(grid.firstChild);
+    while (booksGrid.hasChildNodes()) {
+        booksGrid.removeChild(booksGrid.firstChild);
     }
 
     for (i = 0; i < myLibrary.length; i++) {
@@ -60,18 +61,23 @@ function displayBooks() {
         book.appendChild(pages);
         book.appendChild(read);
     
-        grid.appendChild(book);
+        booksGrid.appendChild(book);
     }
 
-    if (grid.hasChildNodes()) {
+    if (booksGrid.hasChildNodes()) {
         emptyLibMsg.style.display = 'none';
     }
 }
 
-addButton.addEventListener('click', () => {
-    getDetails();
-    // addBookPage.classList.add('active')
-});
+// addButton.addEventListener('click', () => {
+//     getDetails();
+//     // addBookPage.classList.add('active')
+// });
+
+newEntry.addEventListener('click', () => {
+    
+    addBookTab.style.display = 'block';
+})
 const books = document.querySelectorAll('.book');
 
 displayBooks();

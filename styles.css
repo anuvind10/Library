@@ -36,7 +36,7 @@ header {
     gap: 20px;
 }
 
-.addNewBook {
+.newEntry {
     max-width: 50px;
     justify-self: end;
 }
@@ -71,11 +71,13 @@ main {
     color: var(--theme-color);
 }
 
-#addBook {
+#addBookTab {
+    display: none;
     max-width: 500px;
     background-color: var(--bg-color3);
     border-radius: 20px;
 }
+
 .addBookForm {
     display: flex;
     flex-direction: column;
@@ -103,14 +105,14 @@ input[type="text"]:focus {
     outline: none;
 }
 
-.addBook {
+.add {
     width: 100px;
     padding: 5px 0;
     border-radius: 10px;
     border: none;
 }
 
-.addBook:hover {
+.add:hover {
     background-color: var(--theme-color);
     color: white;
 }
