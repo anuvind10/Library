@@ -1,6 +1,7 @@
 const grid = document.querySelector('.books');
-const addButton = document.querySelector('.addButton');
-const emptyLibMsg = document.querySelector('#emptyLibMsg')
+const addButton = document.querySelector('.addBook');
+const emptyLibMsg = document.querySelector('#emptyLibMsg');
+const addBookPage = document.querySelector('#addBook');
 
 const myLibrary = [];
 
@@ -67,7 +68,10 @@ function displayBooks() {
     }
 }
 
-addButton.addEventListener('click', getDetails);
+addButton.addEventListener('click', () => {
+    getDetails();
+    // addBookPage.classList.add('active')
+});
 const books = document.querySelectorAll('.book');
 
 displayBooks();

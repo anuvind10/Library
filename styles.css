@@ -36,7 +36,7 @@ header {
     gap: 20px;
 }
 
-.addButton {
+.addNewBook {
     max-width: 50px;
     justify-self: end;
 }
@@ -69,4 +69,48 @@ main {
 .details {
     font-weight: bold;
     color: var(--theme-color);
+}
+
+#addBook {
+    max-width: 500px;
+    background-color: var(--bg-color3);
+    border-radius: 20px;
+}
+.addBookForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    gap: 10px;
+}
+
+.readBook {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+input[type="text"] {
+    width: 300px;
+    height: 30px;
+    border-radius: 10px;
+    border: none;
+    padding-left: 10px;
+}
+
+input[type="text"]:focus {
+    outline: none;
+}
+
+.addBook {
+    width: 100px;
+    padding: 5px 0;
+    border-radius: 10px;
+    border: none;
+}
+
+.addBook:hover {
+    background-color: var(--theme-color);
+    color: white;
 }

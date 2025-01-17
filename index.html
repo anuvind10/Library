@@ -13,12 +13,25 @@
             <img src="./icons/logo1.png" alt="logo" class="png">
             <h1>Your Library</h1>
         </div>
-        <img src="./icons/add.png" alt="add" class="addButton">
+        <img src="./icons/add.png" alt="add" class="addNewBook">
     </header>
     <main>
         <div class="books"></div>
         <h1 id="emptyLibMsg">No Books Added</h1>
     </main>
+    <div id="addBook">
+        <form action="" id= "addBookForm" class="addBookForm">
+            <h3>Add a new book</h3>
+            <input type="text" name="bookTtile" id="bookTitle" placeholder="Title" required maxlength="50">
+            <input type="text" name="author" id="author" placeholder="Author" required maxlength="50">
+            <input type="text" name="noOfPages" id="noOfPages" placeholder="No. of Pages" required maxlength="5">
+            <div class="readBook">
+                <p>Have you read the book?</p>
+                <input type="checkbox" name="readChk" id="readChk">
+            </div>
+            <button class="addBook">Add</button>
+        </form>
+    </div>
     <footer>
     </footer>
 </body>
