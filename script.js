@@ -4,6 +4,12 @@ const emptyLibMsg = document.querySelector('#emptyLibMsg');
 const addButton = document.querySelector('.add');
 const addBookTab = document.querySelector('#addBookTab');
 
+const overlay = document.createElement('div');
+
+// Add an overlay to the DOM
+overlay.id = 'overlay';
+document.body.appendChild(overlay);
+
 const myLibrary = [];
 
 function Book(title, author, pages, read) {
@@ -74,10 +80,26 @@ function displayBooks() {
 //     // addBookPage.classList.add('active')
 // });
 
-newEntry.addEventListener('click', () => {
-    
-    addBookTab.style.display = 'block';
-})
+// Function to toggle the popup
+function togglePopup() {
+    const isPopupVisible = addBookTab.style.display === 'block';
+
+    if (isPopupVisible) {
+        addBookTab.style.display = 'none';
+        overlay.style.display = 'none';
+        document.body.classList.remove('blur');
+    } else {
+        addBookTab.style.display = 'block';
+        overlay.style.display = 'block';
+        document.body.classList.add('blur');
+    }
+}
+
+newEntry.addEventListener('click', togglePopup)
+// add.addEventListener('click', () => {
+//     togglePopup();
+// })
+
 const books = document.querySelectorAll('.book');
 
 displayBooks();
