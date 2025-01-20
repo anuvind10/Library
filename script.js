@@ -3,6 +3,12 @@ const newEntry = document.querySelector('#newEntry')
 const emptyLibMsg = document.querySelector('#emptyLibMsg');
 const addButton = document.querySelector('.add');
 const addBookTab = document.querySelector('#addBookTab');
+const addBookForm = document.querySelector('#addBookForm');
+
+const bookTitle = document.querySelector('#bookTitle');
+const bookAuthor = document.querySelector('#author');
+const bookPages = document.querySelector('#noOfPages');
+const bookRead = document.querySelector('#readChk');
 
 const overlay = document.createElement('div');
 
@@ -19,21 +25,16 @@ function Book(title, author, pages, read) {
     this.read = read;
 }
 
-function addBookToLibrary (title, author, pages, read) {
+function addBookToLibrary () {
+
+    var title = bookTitle.value;
+    var author = bookAuthor.value;
+    var pages = bookPages.value;
+    var read = bookRead.checked? "Read" : "Not Read";
     
     var newBook = new Book(title, author, pages, read);
     myLibrary.push(newBook)
 
-}
-
-function getDetails() {
-    
-    var title = prompt("Title")
-    var author = prompt("Author")
-    var pages = prompt("No. of Pages")
-    var read = prompt("Have you read it?")
-
-    addBookToLibrary(title, author, pages, read);
     displayBooks();
 }
 
@@ -75,11 +76,6 @@ function displayBooks() {
     }
 }
 
-// addButton.addEventListener('click', () => {
-//     getDetails();
-//     // addBookPage.classList.add('active')
-// });
-
 // Function to toggle the popup
 function togglePopup() {
     const isPopupVisible = addBookTab.style.display === 'block';
@@ -96,10 +92,11 @@ function togglePopup() {
 }
 
 newEntry.addEventListener('click', togglePopup)
-// add.addEventListener('click', () => {
-//     togglePopup();
-// })
+addButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    addBookToLibrary();
+    addBookForm.reset();
+    togglePopup();
+})
 
 const books = document.querySelectorAll('.book');
-
-displayBooks();
