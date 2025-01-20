@@ -7,9 +7,9 @@ const addBookForm = document.querySelector('#addBookForm');
 const inputs = document.querySelectorAll('input');
 const helpTexts = document.querySelectorAll('.helpText');
 
-const bookTitle = document.querySelector('#bookTitle');
-const bookAuthor = document.querySelector('#author');
-const bookPages = document.querySelector('#noOfPages');
+const bookTitle = document.querySelector('#Title');
+const bookAuthor = document.querySelector('#Author');
+const bookPages = document.querySelector('#Pages');
 const bookRead = document.querySelector('#readChk');
 
 const overlay = document.createElement('div');
@@ -144,6 +144,8 @@ function validateForm(event) {
             showHelpText(input);
         }
     });
+
+    return isValid;
 }
 
 inputs.forEach(input => {
