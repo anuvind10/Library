@@ -4,6 +4,8 @@ const emptyLibMsg = document.querySelector('#emptyLibMsg');
 const addButton = document.querySelector('.add');
 const addBookTab = document.querySelector('#addBookTab');
 const addBookForm = document.querySelector('#addBookForm');
+const inputs = document.querySelectorAll('input');
+const helpTexts = document.querySelectorAll('.helpText');
 
 const bookTitle = document.querySelector('#bookTitle');
 const bookAuthor = document.querySelector('#author');
@@ -91,12 +93,96 @@ function togglePopup() {
     }
 }
 
+function isFormEmpty() {
+    var emptyInputs = [];
+    inputs.forEach(input => {
+        if (input.type !== 'checkbox' && input.value.trim() === '') {
+
+            // Remove Below
+            console.log(`Empty input detected: ${input.id}`);
+            // till here
+
+            emptyInputs.push(input.id);
+        }
+    });
+    
+    console.log('Empty inputs:', emptyInputs); // Debug log
+    return emptyInputs.length > 0 ? emptyInputs : null;
+}
+
+function toggleWarning() {
+    var helpTextID = 'helpText' + this.id;
+    var helpText = document.getElementById(helpTextID);
+    const isWarningActive = helpText.classList.contains('warning-active');
+
+    if(isWarningActive && this.value.trim() !== '') {
+        helpText.classList.remove('warning-active');
+    }
+    else if (this.value.trim() === '') {
+        helpText.classList.add('warning-active');
+    }
+}
+
+function Alert(emptyInputs) {
+    var helpTextID;
+    var helpText;
+
+    emptyInputs.forEach(input => {
+        helpTextID = 'helpText' + input;
+        helpText = document.getElementById(helpTextID);
+        // helpText.classList.add('alert-active');
+
+        // Remove Below
+        console.log(`Checking: ${helpTextID}`, helpText); // Debug log
+
+        if (helpText) {
+            // Force re-trigger animation
+            helpText.classList.remove('alert-active');
+            void helpText.offsetWidth; // Trigger reflow
+            helpText.classList.add('alert-active');
+
+            // Ensure animationend triggers correctly
+            helpText.addEventListener('animationend', () => {
+                console.log(`Animation ended for: ${helpTextID}`);
+                helpText.classList.remove('alert-active');
+            }, { once: true }); // `once: true` ensures the listener is removed after execution
+        } else {
+            console.error(`No helpText element found for ID: ${helpTextID}`);
+        }
+
+        // Till here
+        
+        // helpText.onanimationend = () => {
+        //     helpText.classList.remove('alert-active');
+        // };
+
+    });
+}
+
+inputs.forEach(input => {
+    if (input.classList.contains('alert-active')) {
+        input.classList.remove('alert -active');
+    }
+
+    if (input.type !== 'checkbox') {
+        input.addEventListener('focusout', toggleWarning);
+    }
+ });
+
 newEntry.addEventListener('click', togglePopup)
 addButton.addEventListener('click', (event) => {
     event.preventDefault();
+    var emptyInputs = isFormEmpty();
+    
+    if(emptyInputs) {
+        Alert(emptyInputs);
+        return;
+    }
+
     addBookToLibrary();
     addBookForm.reset();
     togglePopup();
 })
 
-const books = document.querySelectorAll('.book');
+ const books = document.querySelectorAll('.book');
+

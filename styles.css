@@ -13,7 +13,8 @@
     --bg-color2: #1f1f1f;
     --bg-color3: #575757;
     --font-color: white;
-    --theme-color: #cf7dff;
+    --theme-color-light: #cf7dff;
+    --theme-color-dark: #c159fd;
 }
 
 body{
@@ -21,7 +22,7 @@ body{
     color: var(--font-color);
     display: flex;
     flex-direction: column;
-}
+}   
 
 header {
     background-color: var(--bg-color1);
@@ -68,7 +69,7 @@ main {
 
 .details {
     font-weight: bold;
-    color: var(--theme-color);
+    color: var(--theme-color-light);
 }
 
 /* Hide the popup by default */
@@ -96,13 +97,50 @@ main {
     gap: 20px;
 }
 
-.readBook {
+.addBookForm > h2 {
+    height: 50px;
+    color: var(--theme-color-dark);
+}
+
+.helpText {
+    display: none;
+}
+
+.helpText.warning-active {
+    display: block;
+    font-size: 12px;
+    color: #ff4949;
+    animation: fadeInAnimation ease 1s;
+    animation-iteration-count: 1;
+    padding: 8px 0 0 5px;
+}
+
+.helpText.alert-active {
+    display: block;
+    font-size: 12px;
+    color: #ff4949;
+    animation: shake 0.2s;
+    animation-iteration-count: 1;
+    padding: 8px 0 0 5px;
+}
+
+.input {
+    height: 50px;
+}
+
+#readBook {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 20px;
 }
 
-input[type="text"] {
+#readBook > p {
+    position: relative;
+    top: -5px;
+}
+
+input[type="text"],
+input[type="number"] {
     width: 300px;
     height: 30px;
     border-radius: 10px;
@@ -110,19 +148,22 @@ input[type="text"] {
     padding-left: 10px;
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus,
+input[type="number"]:focus {
     outline: none;
 }
 
+
 .add {
-    width: 100px;
-    padding: 5px 0;
+    /* width: 100px; */
+    font-size: 16px;
+    padding: 10px 50px;
     border-radius: 10px;
     border: none;
 }
 
 .add:hover {
-    background-color: var(--theme-color);
+    background-color: var(--theme-color-dark);
     color: white;
 }
 
@@ -137,6 +178,34 @@ input[type="text"]:focus {
     left: 0;
     width: 100%;
     height: 100%;
-    /* background: rgba(0, 0, 0, 0.6); */
+    background: rgba(0,  0, 0, 0.6);
     z-index: 5;
+}
+
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(0);
+    }
+    25% {
+        transform: translate(-5px);
+    }
+    50% {
+        transform: translate(5px);
+    }
+    75% {
+        transform: translate(-5px);
+    }
+    100% {
+        transform: translate(0);
+    }
 }

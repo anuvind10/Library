@@ -21,11 +21,20 @@
     </main>
     <div id="addBookTab">
         <form action="" id= "addBookForm" class="addBookForm">
-            <h2>Add a new book</h2>
-            <input type="text" name="bookTtile" id="bookTitle" placeholder="Title" required maxlength="50">
-            <input type="text" name="author" id="author" placeholder="Author" required maxlength="50">
-            <input type="text" name="noOfPages" id="noOfPages" placeholder="No. of Pages" required maxlength="5">
-            <div class="readBook">
+            <h2>Add a New Book</h2>
+            <div class="input">
+                <input type="text" name="Ttile" id="Title" placeholder="Title" required maxlength="50">
+                <p id="helpTextTitle" class="helpText">Title cannot be empty!</p>
+            </div>
+            <div class="input">
+                <input type="text" name="Author" id="Author" placeholder="Author" required maxlength="50">
+                <p id="helpTextAuthor" class="helpText">A book should have an author!</p>
+            </div>
+            <div class="input">
+                <input type="number" name="Pages" id="Pages" placeholder="No. of Pages" required maxlength="5">
+                <p id="helpTextPages" class="helpText">Seriously?!? No pages for this book?</p>
+            </div>
+            <div id ="readBook" class="input">
                 <p>Have you read the book?</p>
                 <input type="checkbox" name="readChk" id="readChk">
             </div>
