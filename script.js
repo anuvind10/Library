@@ -49,6 +49,7 @@ function displayBooks() {
 
     for (i = 0; i < myLibrary.length; i++) {
         var book = document.createElement('div');
+        book.id = 'book';
         book.classList.add('book');
     
         var title = document.createElement('p');
@@ -56,15 +57,19 @@ function displayBooks() {
         var pages = document.createElement('p');
         var read = document.createElement('p');
     
-        title.innerHTML = "<span class='details'>Title: </span>" + myLibrary[i].title;
-        author.innerHTML = "<span class='details'>Author: </span>" + myLibrary[i].author;
-        pages.innerHTML = "<span class='details'>No. of Pages: </span>" + myLibrary[i].pages;
-        read.innerHTML = "<span class='details'>Read: </span>" + myLibrary[i].read;
+        title.innerHTML = "<span class='header'>Title: </span>" + myLibrary[i].title;
+        author.innerHTML = "<span class='header'>Author: </span>" + myLibrary[i].author;
+        pages.innerHTML = "<span class='header'>No. of Pages: </span>" + myLibrary[i].pages;
+        read.innerHTML = "<span class='header'>Read: </span>" + myLibrary[i].read;
     
-        title.classList.add('title');
-        author.classList.add('author');
-        pages.classList.add('pages');
-        read.classList.add('read');
+        title.id = 'title'
+        author.id = 'author'
+        pages.id = 'pages'
+        read.id = 'read'
+        title.classList.add('details');
+        author.classList.add('details');
+        pages.classList.add('details');
+        read.classList.add('details');
     
         book.appendChild(title);
         book.appendChild(author);

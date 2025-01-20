@@ -13,8 +13,7 @@
     --bg-color2: #1f1f1f;
     --bg-color3: #575757;
     --font-color: white;
-    --theme-color-light: #cf7dff;
-    --theme-color-dark: #c159fd;
+    --theme-color: #c159fd;
 }
 
 body{
@@ -55,7 +54,7 @@ main {
 
 .books {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 500px));
     gap: 20px;
     padding: 50px;
 }
@@ -65,11 +64,13 @@ main {
     border-radius: 8px;
     padding: 20px;
     padding-left: 50px;
+    display: flex;
+    flex-direction: column;
 }
 
-.details {
+.header {
     font-weight: bold;
-    color: var(--theme-color-light);
+    color: var(--theme-color);
 }
 
 /* Hide the popup by default */
@@ -99,7 +100,7 @@ main {
 
 .addBookForm > h2 {
     height: 50px;
-    color: var(--theme-color-dark);
+    color: var(--theme-color);
 }
 
 .helpText {
@@ -163,7 +164,7 @@ input[type="number"]:focus {
 }
 
 .add:hover {
-    background-color: var(--theme-color-dark);
+    background-color: var(--theme-color);
     color: white;
 }
 
