@@ -23,15 +23,15 @@
         <form action="" id= "addBookForm" class="addBookForm">
             <h2>Add a New Book</h2>
             <div class="input">
-                <input type="text" name="Ttile" id="Title" placeholder="Title" required maxlength="50">
+                <input type="text" name="Ttile" id="Title" placeholder="Title" data-help="helpTextTitle" required maxlength="50">
                 <p id="helpTextTitle" class="helpText">Title cannot be empty!</p>
             </div>
             <div class="input">
-                <input type="text" name="Author" id="Author" placeholder="Author" required maxlength="50">
+                <input type="text" name="Author" id="Author" placeholder="Author" data-help="helpTextAuthor" required maxlength="50">
                 <p id="helpTextAuthor" class="helpText">A book should have an author!</p>
             </div>
             <div class="input">
-                <input type="number" name="Pages" id="Pages" placeholder="No. of Pages" required maxlength="5">
+                <input type="number" name="Pages" id="Pages" placeholder="No. of Pages" data-help="helpTextPages" required maxlength="5">
                 <p id="helpTextPages" class="helpText">Seriously?!? No pages for this book?</p>
             </div>
             <div id ="readBook" class="input">

@@ -14,6 +14,7 @@ const bookRead = document.querySelector('#readChk');
 
 const overlay = document.createElement('div');
 
+
 // Add an overlay to the DOM
 overlay.id = 'overlay';
 document.body.appendChild(overlay);
@@ -78,7 +79,6 @@ function displayBooks() {
     }
 }
 
-// Function to toggle the popup
 function togglePopup() {
     const isPopupVisible = addBookTab.style.display === 'block';
 
@@ -93,96 +93,81 @@ function togglePopup() {
     }
 }
 
-function isFormEmpty() {
-    var emptyInputs = [];
-    inputs.forEach(input => {
-        if (input.type !== 'checkbox' && input.value.trim() === '') {
-
-            // Remove Below
-            console.log(`Empty input detected: ${input.id}`);
-            // till here
-
-            emptyInputs.push(input.id);
-        }
-    });
-    
-    console.log('Empty inputs:', emptyInputs); // Debug log
-    return emptyInputs.length > 0 ? emptyInputs : null;
-}
-
-function toggleWarning() {
-    var helpTextID = 'helpText' + this.id;
-    var helpText = document.getElementById(helpTextID);
-    const isWarningActive = helpText.classList.contains('warning-active');
-
-    if(isWarningActive && this.value.trim() !== '') {
-        helpText.classList.remove('warning-active');
-    }
-    else if (this.value.trim() === '') {
-        helpText.classList.add('warning-active');
-    }
-}
-
-function Alert(emptyInputs) {
+function showHelpText(input) {
+    var invalidFormEntry = false;
+    var inputNode;
     var helpTextID;
-    var helpText;
+    var helpText
 
-    emptyInputs.forEach(input => {
-        helpTextID = 'helpText' + input;
-        helpText = document.getElementById(helpTextID);
-        // helpText.classList.add('alert-active');
+    if(input.target) {
+        inputNode = input.target;
+    }
+    else {
+        inputNode = input;
+        invalidFormEntry = true;
+    }
 
-        // Remove Below
-        console.log(`Checking: ${helpTextID}`, helpText); // Debug log
+    helpTextID = inputNode.getAttribute('data-help');
+    helpText = document.getElementById(helpTextID);
 
-        if (helpText) {
-            // Force re-trigger animation
+    if (inputNode.value.trim() !== '') {
+        helpText.classList.remove('warning-active');
+        helpText.classList.remove('alert-active');
+        return;
+    }
+
+    if(helpText) {
+        if (invalidFormEntry) {
+            helpText.classList.remove('warning-active');
             helpText.classList.remove('alert-active');
-            void helpText.offsetWidth; // Trigger reflow
+            void helpText.offsetWidth;
             helpText.classList.add('alert-active');
 
-            // Ensure animationend triggers correctly
-            helpText.addEventListener('animationend', () => {
-                console.log(`Animation ended for: ${helpTextID}`);
-                helpText.classList.remove('alert-active');
-            }, { once: true }); // `once: true` ensures the listener is removed after execution
-        } else {
-            console.error(`No helpText element found for ID: ${helpTextID}`);
+            if(helpText.classList.contains('warning-active')) {
+                helpText.addEventListener('animationend', () => {
+                    helpText.classList.remove('alert-active');
+                })
+            }
         }
+        else if(!helpText.classList.contains('warning-active') && !helpText.classList.contains('alert-active')) {
+            helpText.classList.add('warning-active');
+        }
+    }
+}
 
-        // Till here
-        
-        // helpText.onanimationend = () => {
-        //     helpText.classList.remove('alert-active');
-        // };
+function validateForm(event) {
+    var isValid = true;
 
+    inputs.forEach(input => {
+        if (input.type !== 'checkbox' && input.value.trim() === '') {
+            isValid = false;
+            showHelpText(input);
+        }
     });
 }
 
 inputs.forEach(input => {
     if (input.classList.contains('alert-active')) {
-        input.classList.remove('alert -active');
+        input.classList.remove('alert-active');
     }
 
     if (input.type !== 'checkbox') {
-        input.addEventListener('focusout', toggleWarning);
+        input.addEventListener('focusout', showHelpText);
     }
  });
 
 newEntry.addEventListener('click', togglePopup)
 addButton.addEventListener('click', (event) => {
     event.preventDefault();
-    var emptyInputs = isFormEmpty();
-    
-    if(emptyInputs) {
-        Alert(emptyInputs);
+
+    if(!validateForm(event)) {
         return;
     }
 
     addBookToLibrary();
     addBookForm.reset();
     togglePopup();
-})
+})  
 
  const books = document.querySelectorAll('.book');
 
