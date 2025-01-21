@@ -15,7 +15,6 @@ const bookRead = document.querySelector('#readChk');
 
 const overlay = document.createElement('div');
 
-
 // Add an overlay to the DOM
 overlay.id = 'overlay';
 document.body.appendChild(overlay);
@@ -27,6 +26,40 @@ function Book(title, author, pages, read) {
     this.author = author;
     this.pages = pages;
     this.read = read;
+}
+
+function LibraryMain() {
+    
+    newEntry.addEventListener('click', togglePopup)
+    inputs.forEach(input => {
+        if (input.classList.contains('alert-active')) {
+            input.classList.remove('alert-active');
+        }
+    
+        if (input.type !== 'checkbox') {
+            input.addEventListener('focusout', showHelpText);
+        }
+     });
+
+    cancelButton.addEventListener('click', (event) => {
+        event.preventDefault();
+    
+        addBookForm.reset();
+        showHelpText(event);
+        togglePopup();
+    });
+
+    addButton.addEventListener('click', (event) => {
+        event.preventDefault();
+    
+        if(!validateForm(event)) {
+            return;
+        }
+    
+        addBookToLibrary();
+        addBookForm.reset();
+        togglePopup();
+    });
 }
 
 function addBookToLibrary () {
@@ -50,28 +83,37 @@ function displayBooks() {
 
     for (i = 0; i < myLibrary.length; i++) {
         var book = document.createElement('div');
-        book.id = 'book';
+        book.id = 'book-' + i;
         book.classList.add('book');
     
         var title = document.createElement('p');
         var author = document.createElement('p');
         var pages = document.createElement('p');
-        var read = document.createElement('p');
+        var read = document.createElement('button');
     
         title.innerHTML = "<span class='header'>Title: </span>" + myLibrary[i].title;
         author.innerHTML = "<span class='header'>Author: </span>" + myLibrary[i].author;
         pages.innerHTML = "<span class='header'>No. of Pages: </span>" + myLibrary[i].pages;
-        read.innerHTML = "<span class='header'>Read: </span>" + myLibrary[i].read;
-    
-        title.id = 'title'
-        author.id = 'author'
-        pages.id = 'pages'
-        read.id = 'read'
+        read.textContent = myLibrary[i].read;
+
+        if (myLibrary[i].read !== 'Not Read') {
+            read.classList.add('read');
+        }
+        else {
+            read.classList.add('notRead');
+        }
+
+        title.id = 'title-' + i;
+        author.id = 'author-' + i;
+        pages.id = 'pages-' + i;
+        read.id = 'readBtn-' + i;
         title.classList.add('details');
         author.classList.add('details');
         pages.classList.add('details');
-        read.classList.add('details');
-    
+        read.classList.add('details', 'readBtn');
+
+        read.setAttribute('data-read-id', `book-${i}`);
+
         book.appendChild(title);
         book.appendChild(author);
         book.appendChild(pages);
@@ -83,29 +125,25 @@ function displayBooks() {
     if (booksGrid.hasChildNodes()) {
         emptyLibMsg.style.display = 'none';
     }
+
+    const readBtns = document.querySelectorAll('.readBtn');
+    readBtns.forEach(button => {
+        button.addEventListener('click', toggleRead)
+    });
+
 }
 
-function togglePopup() {
-    const isPopupVisible = addBookTab.style.display === 'block';
+function validateForm(event) {
+    var isValid = true;
 
     inputs.forEach(input => {
-        var helpTextID = input.getAttribute('data-help');
-        var helpText = document.getElementById(helpTextID);
-
-        if (helpText) {
-            helpText.classList.remove('warning-active', 'alert-active');
+        if (input.type !== 'checkbox' && input.value.trim() === '') {
+            isValid = false;
+            showHelpText(input);
         }
     });
 
-    if (isPopupVisible) {
-        addBookTab.style.display = 'none';
-        overlay.style.display = 'none';
-        document.body.classList.remove('blur');
-    } else {
-        addBookTab.style.display = 'block';
-        overlay.style.display = 'block';
-        document.body.classList.add('blur');
-    }
+    return isValid;
 }
 
 function showHelpText(input) {
@@ -150,49 +188,45 @@ function showHelpText(input) {
     }
 }
 
-function validateForm(event) {
-    var isValid = true;
+function togglePopup() {
+    const isPopupVisible = addBookTab.style.display === 'block';
 
     inputs.forEach(input => {
-        if (input.type !== 'checkbox' && input.value.trim() === '') {
-            isValid = false;
-            showHelpText(input);
+        var helpTextID = input.getAttribute('data-help');
+        var helpText = document.getElementById(helpTextID);
+
+        if (helpText) {
+            helpText.classList.remove('warning-active', 'alert-active');
         }
     });
 
-    return isValid;
+    if (isPopupVisible) {
+        addBookTab.style.display = 'none';
+        overlay.style.display = 'none';
+        document.body.classList.remove('blur');
+    } else {
+        addBookTab.style.display = 'block';
+        overlay.style.display = 'block';
+        document.body.classList.add('blur');
+    }
 }
 
-inputs.forEach(input => {
-    if (input.classList.contains('alert-active')) {
-        input.classList.remove('alert-active');
+function toggleRead () {
+    const isRead = this.classList.contains('read');
+    const bookID = this.getAttribute('data-read-id').split('-')[1];
+
+    if (isRead) {
+        this.classList.remove('read');
+        this.classList.add('notRead');
+        myLibrary[bookID].read = 'Not Read';
+    }
+    else {
+        this.classList.remove('notRead');
+        this.classList.add('read');
+        myLibrary[bookID].read = 'Read';
     }
 
-    if (input.type !== 'checkbox') {
-        input.addEventListener('focusout', showHelpText);
-    }
- });
+    displayBooks();
+}
 
-newEntry.addEventListener('click', togglePopup)
-addButton.addEventListener('click', (event) => {
-    event.preventDefault();
-
-    if(!validateForm(event)) {
-        return;
-    }
-
-    addBookToLibrary();
-    addBookForm.reset();
-    togglePopup();
-})  
-
-cancelButton.addEventListener('click', (event) => {
-    event.preventDefault();
-
-    addBookForm.reset();
-    showHelpText(event);
-    togglePopup();
-})
-
- const books = document.querySelectorAll('.book');
-
+LibraryMain();

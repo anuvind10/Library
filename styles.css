@@ -66,6 +66,22 @@ main {
     padding-left: 50px;
     display: flex;
     flex-direction: column;
+    gap: 5px;
+}
+
+.readBtn {
+    max-width: 150px;
+    border-radius: 10px;
+    border: none;
+    padding: 5px 0;;
+}
+
+.readBtn.read {
+    background-color: #5dac5d;
+}
+
+.readBtn.notRead {
+    background-color: #d44747;
 }
 
 .header {
