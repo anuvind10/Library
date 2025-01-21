@@ -1,7 +1,8 @@
 const booksGrid = document.querySelector('.books');
 const newEntry = document.querySelector('#newEntry')
 const emptyLibMsg = document.querySelector('#emptyLibMsg');
-const addButton = document.querySelector('.add');
+const addButton = document.querySelector('#addBtn');
+const cancelButton = document.querySelector('#cancelBtn');
 const addBookTab = document.querySelector('#addBookTab');
 const addBookForm = document.querySelector('#addBookForm');
 const inputs = document.querySelectorAll('input');
@@ -86,6 +87,15 @@ function displayBooks() {
 
 function togglePopup() {
     const isPopupVisible = addBookTab.style.display === 'block';
+
+    inputs.forEach(input => {
+        var helpTextID = input.getAttribute('data-help');
+        var helpText = document.getElementById(helpTextID);
+
+        if (helpText) {
+            helpText.classList.remove('warning-active', 'alert-active');
+        }
+    });
 
     if (isPopupVisible) {
         addBookTab.style.display = 'none';
@@ -175,6 +185,14 @@ addButton.addEventListener('click', (event) => {
     addBookForm.reset();
     togglePopup();
 })  
+
+cancelButton.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    addBookForm.reset();
+    showHelpText(event);
+    togglePopup();
+})
 
  const books = document.querySelectorAll('.book');
 
