@@ -204,6 +204,20 @@ input[type="number"]:focus {
     z-index: 5;
 }
 
+.deleteBtn {
+    visibility: hidden;
+    max-width: 20px;
+    position: relative;
+    left: 95%;
+    top: -112px;
+}
+
+.deleteBtn.active {
+    visibility: visible;
+    animation: fadeInAnimation ease 1s;
+    animation-iteration-count: 1;
+}
+
 
 @keyframes fadeInAnimation {
     0% {

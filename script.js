@@ -90,11 +90,14 @@ function displayBooks() {
         var author = document.createElement('p');
         var pages = document.createElement('p');
         var read = document.createElement('button');
+        var deleteBtn = document.createElement('img');
     
         title.innerHTML = "<span class='header'>Title: </span>" + myLibrary[i].title;
         author.innerHTML = "<span class='header'>Author: </span>" + myLibrary[i].author;
         pages.innerHTML = "<span class='header'>No. of Pages: </span>" + myLibrary[i].pages;
         read.textContent = myLibrary[i].read;
+        deleteBtn.src = "./icons/delete.png";
+        deleteBtn.alt = "delete";
 
         if (myLibrary[i].read !== 'Not Read') {
             read.classList.add('read');
@@ -107,10 +110,13 @@ function displayBooks() {
         author.id = 'author-' + i;
         pages.id = 'pages-' + i;
         read.id = 'readBtn-' + i;
+        deleteBtn.id = "deleteBtn-" + i;
+
         title.classList.add('details');
         author.classList.add('details');
         pages.classList.add('details');
         read.classList.add('details', 'readBtn');
+        deleteBtn.classList.add('png', 'deleteBtn')
 
         read.setAttribute('data-read-id', `book-${i}`);
 
@@ -118,6 +124,7 @@ function displayBooks() {
         book.appendChild(author);
         book.appendChild(pages);
         book.appendChild(read);
+        book.appendChild(deleteBtn);
     
         booksGrid.appendChild(book);
     }
@@ -126,9 +133,20 @@ function displayBooks() {
         emptyLibMsg.style.display = 'none';
     }
 
+    const books = document.querySelectorAll('.book');
+    books.forEach(book => {
+        book.addEventListener('mouseenter', toggleDelete);
+        book.addEventListener('mouseleave', toggleDelete);
+    });
+
     const readBtns = document.querySelectorAll('.readBtn');
     readBtns.forEach(button => {
-        button.addEventListener('click', toggleRead)
+        button.addEventListener('click', toggleRead);
+    });
+
+    const deleteBtns = document.querySelectorAll('.deleteBtn');
+    deleteBtns.forEach(button => {
+        button.addEventListener('click', deleteBook());
     });
 
 }
@@ -188,6 +206,10 @@ function showHelpText(input) {
     }
 }
 
+function deleteBook() {
+    
+}
+
 function togglePopup() {
     const isPopupVisible = addBookTab.style.display === 'block';
 
@@ -213,7 +235,7 @@ function togglePopup() {
 
 function toggleRead () {
     const isRead = this.classList.contains('read');
-    const bookID = this.getAttribute('data-read-id').split('-')[1];
+    var bookID = this.getAttribute('data-read-id').split('-')[1];
 
     if (isRead) {
         this.classList.remove('read');
@@ -227,6 +249,20 @@ function toggleRead () {
     }
 
     displayBooks();
+}
+
+function toggleDelete() {
+    var bookID = this.id.split('-')[1];
+    const deleteID = 'deleteBtn-' + bookID;
+    const deleteElem = document.getElementById(deleteID);
+    const isActive = deleteElem.classList.contains('active');
+
+    if(!isActive) {
+        deleteElem.classList.add('active');
+    }
+    else {
+        deleteElem.classList.remove('active');
+    }
 }
 
 LibraryMain();
