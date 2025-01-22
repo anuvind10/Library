@@ -191,8 +191,8 @@ input[type="number"]:focus {
     color: white;
 }
 
- overlay {
-    filter: blur(50px);
+#overlay {
+    /* filter: blur(50px); */
     pointer-events: none;
     user-select: none;
 
@@ -202,7 +202,7 @@ input[type="number"]:focus {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,  0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.6);
     z-index: 5;
 }
 
@@ -219,6 +219,28 @@ input[type="number"]:focus {
     visibility: visible;
     animation: fadeInAnimation ease 1s;
     animation-iteration-count: 1;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-bottom: 50px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b9b9b9;
+}
+
+#gitLink {
+    color: #b9b9b9;
+    text-decoration: none;
+}
+
+#gitLink:hover {
+    color: var(--theme-color);
 }
 
 
