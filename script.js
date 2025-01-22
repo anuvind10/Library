@@ -6,7 +6,6 @@ const cancelButton = document.querySelector('#cancelBtn');
 const addBookTab = document.querySelector('#addBookTab');
 const addBookForm = document.querySelector('#addBookForm');
 const inputs = document.querySelectorAll('input');
-const helpTexts = document.querySelectorAll('.helpText');
 
 const bookTitle = document.querySelector('#Title');
 const bookAuthor = document.querySelector('#Author');
@@ -28,9 +27,12 @@ function Book(title, author, pages, read) {
     this.read = read;
 }
 
+// Main Function
 function LibraryMain() {
     
     newEntry.addEventListener('click', togglePopup)
+
+    // Show help text if no value is entered
     inputs.forEach(input => {
         if (input.classList.contains('alert-active')) {
             input.classList.remove('alert-active');
@@ -43,7 +45,8 @@ function LibraryMain() {
 
     cancelButton.addEventListener('click', (event) => {
         event.preventDefault();
-    
+        
+        // reset the form and go back to the Library page
         addBookForm.reset();
         showHelpText(event);
         togglePopup();
@@ -51,7 +54,8 @@ function LibraryMain() {
 
     addButton.addEventListener('click', (event) => {
         event.preventDefault();
-    
+        
+        // Only proceed if the form is valid
         if(!validateForm(event)) {
             return;
         }
@@ -77,6 +81,7 @@ function addBookToLibrary () {
 
 function displayBooks() {
     
+    // Remove all child nodes and build the DOM again
     while (booksGrid.hasChildNodes()) {
         booksGrid.removeChild(booksGrid.firstChild);
     }
@@ -154,6 +159,7 @@ function displayBooks() {
 
 }
 
+// Display help texts if invalid input is provided
 function validateForm(event) {
     var isValid = true;
 
@@ -191,6 +197,7 @@ function showHelpText(input) {
     }
 
     if(helpText) {
+        // Show shake animation when an invalid form entry is done
         if (invalidFormEntry) {
             helpText.classList.remove('warning-active');
             helpText.classList.remove('alert-active');
@@ -211,17 +218,16 @@ function showHelpText(input) {
 
 function deleteBook() {
     var bookID = this.id.split('-')[1];
-    // var bookElem = 'book-' + bookID;
-    // var bookToDelete = document.getElementById(bookElem);
 
+    // Remove the book from myLibrary
     if (bookID) {
-        // booksGrid.removeChild(bookToDelete)
         myLibrary.splice(bookID, 1);
     }
 
     displayBooks();
 }
 
+// Toggles the form when new entry is clicked
 function togglePopup() {
     const isPopupVisible = addBookTab.style.display === 'block';
 
@@ -245,6 +251,7 @@ function togglePopup() {
     }
 }
 
+// Toggles the 'read' option of a book
 function toggleRead () {
     const isRead = this.classList.contains('read');
     var bookID = this.getAttribute('data-read-id').split('-')[1];
@@ -263,6 +270,7 @@ function toggleRead () {
     displayBooks();
 }
 
+// Delete button appears dynamically on each book
 function toggleDelete() {
     var bookID = this.id.split('-')[1];
     const deleteID = 'deleteBtn-' + bookID;

@@ -119,10 +119,12 @@ main {
     color: var(--theme-color);
 }
 
+/* Hide the help texts by default */
 .helpText {
     display: none;
 }
 
+/* Display the alerts when the entries are invalid */
 .helpText.warning-active {
     display: block;
     font-size: 12px;
@@ -189,7 +191,7 @@ input[type="number"]:focus {
     color: white;
 }
 
- #overlay {
+ overlay {
     filter: blur(50px);
     pointer-events: none;
     user-select: none;
@@ -204,6 +206,7 @@ input[type="number"]:focus {
     z-index: 5;
 }
 
+/* Hide the delete button by default and only show when hovered over the book */
 .deleteBtn {
     visibility: hidden;
     max-width: 20px;
